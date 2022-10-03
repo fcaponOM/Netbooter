@@ -1,0 +1,115 @@
+#kv variables
+    #:set button_size_x 75
+    #:set button_size_y 75
+
+<Netbooter>:
+    Image:
+        source: 'media/om.png'
+        size: self.texture_size
+        height: 150
+        pos: root.width-self.width*3/5,root.height-self.height
+    Image:
+        source: 'media/om2.png'
+        size: self.texture_size
+        height: 125
+        pos: root.width/2-self.width/2,root.height-self.height
+
+    Button:
+        on_release: root.serCom.connect()
+        pos: 0, root.height-button_size_y*4
+        text: root.serCom.connect_button_text
+        size: root.width/2, button_size_y
+        font_size: '25sp'
+        font_name: 'Montserrat-Regular.ttf'
+        background_color: root.serCom.connect_button_color
+        border: 10,10,10,10
+
+    Button:
+        on_release: root.serCom.thread(root.serCom.boot)
+        pos: 0,0
+        text: "Execute"
+        size: root.width/2, button_size_y
+        font_size: '25sp'
+        font_name: 'Montserrat-Regular.ttf'
+        background_color: (0.1176,0.7019,0)
+        border: 10,10,10,10
+
+    Label:
+        text: root.serCom.logs
+        size: root.width/2, root.height-button_size_y*2.5
+        pos: root.width*3/4-self.width/2,root.center_y-button_size_y/2-self.height/2
+        font_name: 'Montserrat-Regular.ttf'
+        font_size: 15
+        background_color: (1.,1.,1.,0.)
+        text_size: self.size
+        canvas.before:
+            Color:
+                rgba: self.background_color
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                
+    Label:
+        text: root.serCom.status
+        size: root.width/2-20, 2*button_size_y-20
+        pos: 10, root.height-button_size_y*6+10
+        font_name: 'Montserrat-Regular.ttf'
+        font_size: 20
+        background_color: root.serCom.status_color
+        text_size: self.size
+        halign: 'center'
+        valign: 'center'
+        canvas.before:
+            Color:
+                rgba: self.background_color
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+    Button:
+        on_release: root.serCom.set_version(root.serCom.versions_property[0])
+        pos: 0, button_size_y
+        text: root.serCom.v1_button_text
+        size: root.width/6, button_size_y
+        font_size: '25sp'
+        font_name: 'Montserrat-Regular.ttf'
+        background_color: root.serCom.v1_button_color
+        border: 10,10,10,10
+    Button:
+        on_release: root.serCom.set_version(root.serCom.versions_property[1])
+        pos: root.width/6, button_size_y
+        text: root.serCom.v2_button_text
+        size: root.width/6, button_size_y
+        font_size: '25sp'
+        font_name: 'Montserrat-Regular.ttf'
+        background_color: root.serCom.v2_button_color
+        border: 10,10,10,10
+    Button:
+        on_release: root.serCom.set_version(root.serCom.versions_property[2])
+        pos: root.width/3, button_size_y
+        text: root.serCom.v3_button_text
+        size: root.width/6, button_size_y
+        font_size: '25sp'
+        font_name: 'Montserrat-Regular.ttf'
+        background_color: root.serCom.v3_button_color
+        border: 10,10,10,10
+    Spinner:
+        size_hint: None, None
+        size: root.width/2, button_size_y
+        pos: 0, root.height-button_size_y*3
+        text: 'Interface'
+        font_size: '25sp'
+        font_name: 'Montserrat-Regular.ttf'
+        values: root.serCom.interfaces
+        on_text: root.serCom.set_interface(self.text)
+        background_color: root.serCom.interfaces_color
+    Button:
+        size: 30,30
+        pos: root.width-self.width-30, 30
+        background_color: (1.,0,0)
+        on_release: root.serCom.abort()
+
+
+
+
+
