@@ -15,8 +15,10 @@ class ImageDetail(APIView):
     def get(self, request, version, format=None):
         image = self.queryset.filter(version=version)
         if image.exists():
-            path = '/home/installnuc/Imageserver/media/' + str(image[0].image.name)
+            path = '/home/installnuc/Netbooter/Imageserver/media/' + str(image[0].image.name)
+            print(path)
             if os.path.exists(path):
+                print("Path exists")
                 response = FileResponse(open(path,'rb'))
                 return response
         else:

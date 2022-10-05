@@ -6,7 +6,7 @@ from . import views
 urlpatterns = [
     path('images/', views.ImageList.as_view()),
     path('images/<slug:version>/', views.ImageDetail.as_view()),
-    path('admin/', admin.site.urls)
+    path('', admin.site.urls)
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

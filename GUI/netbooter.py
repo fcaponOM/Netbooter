@@ -7,7 +7,9 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.spinner import Spinner
 from kivy.uix.popup import Popup
+from kivy.uix.textinput import TextInput
 from kivy.properties import ObjectProperty, StringProperty, ColorProperty, ListProperty
+from kivy.core.window import Window
 from pexpect import fdpexpect
 import pexpect
 import serial
@@ -17,8 +19,9 @@ from time import sleep, time
 import requests
 import re
 
-# GLOBALS
 
+# GLOBALS
+Window.size = (800,800)
 
 class SerCom(Widget):
     # In kivy, properties are used to dynamically update their values in the kv file.
@@ -58,7 +61,7 @@ class SerCom(Widget):
     IP = '192.168.192.1'
     
     status = StringProperty('')
-    status_color = ObjectProperty((1., 1., 1., .1))
+    status_color = ObjectProperty((1., 1., 1., .2))
 
     def __init__(self):
 
@@ -77,7 +80,7 @@ class SerCom(Widget):
         self.serialLogs = open('serial.log', errors='ignore')
 
         # The update method is called every 10 ms. This updates the log screen.
-        refresh_time = 0.01
+        refresh_time = 0.001
         Clock.schedule_interval(self.update, refresh_time)
 
         self.ser = None
@@ -228,7 +231,7 @@ class SerCom(Widget):
             self.installer.sendline(" ")
             self.installer.expect('(initramfs)', timeout=None)
             self.status = "COMPLETE"
-            self.status_color = (0.1176, 0.7019, 0)
+            self.status_color = (0.1176, 0.7019, 0.,0.5)
             # self.installer.expect('(initramfs)')
 
     def set_version(self, version):
